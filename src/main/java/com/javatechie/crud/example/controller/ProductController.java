@@ -47,4 +47,20 @@ public class ProductController {
     public String deleteProduct(@PathVariable int id) {
         return service.deleteProduct(id);
     }
+
+    // v1.1: Search products by keyword
+    @GetMapping("/products/search")
+    public List<Product> searchProducts(@RequestParam(required = false) String keyword) {
+        return service.searchProductsByName(keyword);
+    }
+
+    // v2.0: Search products with advanced filtering
+    @GetMapping("/products/search/advanced")
+    public List<Product> searchProducts(
+        @RequestParam(required = false) String name,
+        @RequestParam(required = false) Double minPrice,
+        @RequestParam(required = false) Double maxPrice) {
+        return service.searchProducts(name, minPrice, maxPrice);
+    }
 }
+

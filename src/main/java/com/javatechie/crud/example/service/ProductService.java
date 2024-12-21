@@ -39,11 +39,22 @@ public class ProductService {
 
     public Product updateProduct(Product product) {
         Product existingProduct = repository.findById(product.getId()).orElse(null);
-        existingProduct.setName(product.getName());
-        existingProduct.setQuantity(product.getQuantity());
-        existingProduct.setPrice(product.getPrice());
+        if (existingProduct != null) {
+            existingProduct.setName(product.getName());
+            existingProduct.setQuantity(product.getQuantity());
+            existingProduct.setPrice(product.getPrice());
+        }
         return repository.save(existingProduct);
     }
 
+    // v1.1: Search products by keyword
+    public List<Product> searchProductsByName(String keyword) {
+        return repository.findByNameContaining(keyword);
+    }
 
+    // v2.0: Advanced search with filtering
+    public List<Product> searchProducts(String name, Double minPrice, Double maxPrice) {
+        return repository.findByCriteria(name, minPrice, maxPrice);
+    }
 }
+
