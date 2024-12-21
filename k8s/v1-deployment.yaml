@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-crud-example-v1
+  namespace: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: spring-boot-crud-example
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: spring-boot-crud-example
+        version: v1
+    spec:
+      containers:
+        - name: spring-boot-crud-example
+          image: sahil773/spring-boot-crud-example:v1.0.0
+          ports:
+            - containerPort: 9191
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+

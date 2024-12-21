@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spring-boot-crud-example-ingress
+  namespace: default  # You can modify the namespace if needed
+spec:
+  rules:
+    - host: 192.168.49.2  # Minikube IP
+      http:
+        paths:
+          - path: /v1
+            pathType: Prefix
+            backend:
+              service:
+                name: spring-boot-crud-example-v1
+                port:
+                  number: 9191
+          - path: /v1.1
+            pathType: Prefix
+            backend:
+              service:
+                name: spring-boot-crud-example-v1.1
+                port:
+                  number: 9191
+          - path: /v2
+            pathType: Prefix
+            backend:
+              service:
+                name: spring-boot-crud-example-v2
+                port:
+                  number: 9191
+
